@@ -21,6 +21,7 @@
     - [Json Schema](#json-schema)
   - [Basic usage](#basic-usage)
     - [URL Configuration](#url-configuration)
+    - [Running](#running)
     - [Reporting](#reporting)
   - [Credits](#credits)
 
@@ -201,6 +202,10 @@ To know more about the Maven build lifecycle please check the [official document
 
 ### URL Configuration
 The URL is specified in the **"serenity.conf"** file and varies according to the environment used.
+
+### Running
+To run all defined test cases, you should executed the defined Runner to be able to get results. This runner file **"GetRunners"** is under **"test/java/com.testautomation.api.runners"** path.
+Right click on the **"GetRunnersFile"** and select **"Run"** to execute the file.
 
 ### Reporting
 This project uses the Maven Serenity plugin to be able to generate the reports. To generate a new report, you can: 
