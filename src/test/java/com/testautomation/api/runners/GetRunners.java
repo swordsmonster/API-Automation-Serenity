@@ -7,8 +7,10 @@ import org.junit.runner.RunWith;
 @RunWith(CucumberSerenityRunner.class)
 @CucumberOptions(
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        features = "src/test/resources/features"//,
+        features = "src/test/resources/features",
+        //register_successful.feature
         //glue = {"com.testautomation.api.stepdefinitions"}
+        tags = "@GetSingle"
 )
 
 public class GetRunners {

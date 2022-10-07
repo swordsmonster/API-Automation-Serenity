@@ -15,25 +15,26 @@ import net.serenitybdd.screenplay.actors.OnStage;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GetUsersStepDefinitions {
+public class PostRegisterSuccessfulStepDefinitions {
 
-    @When("I consume the endpoint to get the page {int} from the user's list")
-    public void iConsumeTheEndpointToGetThePageFromTheUserSList(int page) {
+    @When("I consume the endpoint with email {string} and password {string}")
+    public void iConsumeTheEndpointWithEmailAndPassword(String email, String password) {
         OnStage.theActorInTheSpotlight().attemptsTo(
-                GetUsers.service(WebServiceEndPoints.URI.getUrl(), page)
+                RegisterSuccessful.service(WebServiceEndPoints.URI.getUrl(), email, password)
         );
     }
-    @Then("I get the {int} response code")
+
+    @Then("I receive the {int} response code")
     public void iGetTheResponseCode(int codeNumber) {
         OnStage.theActorInTheSpotlight().should(seeThat("The response code", ResponseCode.was(), equalTo(codeNumber)));
     }
-    @And("user's schema is according to {string}")
+    @And("user's schema received is according to {string}")
     public void userSFieldsInTheListAreAccordingTo(String schemaResponse) {
         OnStage.theActorInTheSpotlight().should(seeThat(TheSchemaIs.expected(schemaResponse)));
     }
-    @And("user's fields exist for each user")
-    public void userSFieldsExist() {
-        OnStage.theActorInTheSpotlight().should(seeThat(TheFieldsGetServicesResponseAre.expected()));
+    @And("id and token are retrieved")
+    public void idAndTokenAreRetrieved() {
+        OnStage.theActorInTheSpotlight().should(seeThat(TheFieldsPostServicesResponseAre.expected()));
     }
-}
 
+}

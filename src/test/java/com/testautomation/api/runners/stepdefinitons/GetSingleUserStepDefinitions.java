@@ -1,10 +1,9 @@
 package com.testautomation.api.runners.stepdefinitons;
 
 import com.testautomation.api.questions.ResponseCode;
-import com.testautomation.api.questions.TheFieldsGetServicesResponseAre;
 import com.testautomation.api.questions.TheFieldsPostServicesResponseAre;
 import com.testautomation.api.questions.TheSchemaIs;
-import com.testautomation.api.tasks.GetUsers;
+import com.testautomation.api.tasks.GetSingleUser;
 import com.testautomation.api.tasks.RegisterSuccessful;
 import com.testautomation.api.utils.resources.WebServiceEndPoints;
 import io.cucumber.java.en.And;
@@ -15,25 +14,25 @@ import net.serenitybdd.screenplay.actors.OnStage;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GetUsersStepDefinitions {
-
-    @When("I consume the endpoint to get the page {int} from the user's list")
-    public void iConsumeTheEndpointToGetThePageFromTheUserSList(int page) {
+public class GetSingleUserStepDefinitions {
+    @When("I consume the endpoint with the user id {int}")
+    public void i_consume_the_endpoint_with_the_user_id(Integer id) {
         OnStage.theActorInTheSpotlight().attemptsTo(
-                GetUsers.service(WebServiceEndPoints.URI.getUrl(), page)
+                GetSingleUser.service(WebServiceEndPoints.URI.getUrl(), id)
         );
     }
-    @Then("I get the {int} response code")
-    public void iGetTheResponseCode(int codeNumber) {
+
+    @Then("the {int} response code received")
+    public void the_response_code_received(Integer codeNumber) {
         OnStage.theActorInTheSpotlight().should(seeThat("The response code", ResponseCode.was(), equalTo(codeNumber)));
     }
-    @And("user's schema is according to {string}")
-    public void userSFieldsInTheListAreAccordingTo(String schemaResponse) {
+    @And("schema received is according to {string}")
+    public void schema_received_is_according_to(String schemaResponse) {
         OnStage.theActorInTheSpotlight().should(seeThat(TheSchemaIs.expected(schemaResponse)));
     }
-    @And("user's fields exist for each user")
-    public void userSFieldsExist() {
-        OnStage.theActorInTheSpotlight().should(seeThat(TheFieldsGetServicesResponseAre.expected()));
+    @And("data values are not empty")
+    public void data_values_are_not_empty() {
+        OnStage.theActorInTheSpotlight().should(seeThat(TheFieldsPostServicesResponseAre.expected()));
     }
-}
 
+}

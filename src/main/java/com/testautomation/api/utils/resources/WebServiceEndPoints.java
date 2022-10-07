@@ -2,6 +2,7 @@ package com.testautomation.api.utils.resources;
 import com.testautomation.api.utils.constants.EndPoints;
 
 public enum WebServiceEndPoints {
+    //URI(EndPoints.URL_POSTREGISTER);
     URI(EndPoints.URL_GETUSERS);
 
     private final String url;
