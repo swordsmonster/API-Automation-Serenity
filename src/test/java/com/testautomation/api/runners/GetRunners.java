@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         //register_successful.feature
         //glue = {"com.testautomation.api.stepdefinitions"}
-        tags = "@GetSingle"
+        tags = "@Get"
 )
 
 public class GetRunners {

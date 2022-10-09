@@ -8,23 +8,25 @@ import net.serenitybdd.screenplay.rest.interactions.Get;
 
 public class ExecuteGet implements Interaction {
     private final String resource;
-    private final int page;
+    private final String paramName;
+    private final int param;
 
-    public ExecuteGet(String resource, int page) {
+    public ExecuteGet(String resource, String paramName, int param) {
         this.resource = resource;
-        this.page = page;
+        this.paramName = paramName;
+        this.param = param;
     }
 
     @Override
     public <T extends Actor> void performAs(T actor){
         SerenityRest.reset();
         actor.attemptsTo(
-                Get.resource(resource).with(request -> request.queryParam("page",page))
+                Get.resource(resource).with(request -> request.params(paramName, param))
         );
     }
 
-    public static ExecuteGet service(String resource, int page){
-        return Tasks.instrumented(ExecuteGet.class, resource, page);
+    public static ExecuteGet service(String resource, String paramName, int param){
+        return Tasks.instrumented(ExecuteGet.class, resource, paramName, param);
     }
 }
 

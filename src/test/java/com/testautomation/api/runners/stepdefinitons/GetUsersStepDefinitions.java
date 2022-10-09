@@ -1,9 +1,6 @@
 package com.testautomation.api.runners.stepdefinitons;
 
-import com.testautomation.api.questions.ResponseCode;
-import com.testautomation.api.questions.TheFieldsGetServicesResponseAre;
-import com.testautomation.api.questions.TheFieldsPostServicesResponseAre;
-import com.testautomation.api.questions.TheSchemaIs;
+import com.testautomation.api.questions.*;
 import com.testautomation.api.tasks.GetUsers;
 import com.testautomation.api.tasks.RegisterSuccessful;
 import com.testautomation.api.utils.resources.WebServiceEndPoints;
@@ -17,10 +14,16 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class GetUsersStepDefinitions {
 
-    @When("I consume the endpoint to get the page {int} from the user's list")
-    public void iConsumeTheEndpointToGetThePageFromTheUserSList(int page) {
+    @When("I consume the endpoint to get the {string} {int} from the user's list")
+    public void iConsumeTheEndpointToGetThePageFromTheUserSList(String parameter, int page) {
         OnStage.theActorInTheSpotlight().attemptsTo(
-                GetUsers.service(WebServiceEndPoints.URI.getUrl(), page)
+                GetUsers.service(WebServiceEndPoints.URI.getUrl(), parameter, page)
+        );
+    }
+    @When("I consume the endpoint to get the user {string} {int}")
+    public void iConsumeTheEndpointToGetTheUser(String parameter, int page) {
+        OnStage.theActorInTheSpotlight().attemptsTo(
+                GetUsers.service(WebServiceEndPoints.URI.getUrl(), parameter, page)
         );
     }
     @Then("I get the {int} response code")
@@ -34,6 +37,10 @@ public class GetUsersStepDefinitions {
     @And("user's fields exist for each user")
     public void userSFieldsExist() {
         OnStage.theActorInTheSpotlight().should(seeThat(TheFieldsGetServicesResponseAre.expected()));
+    }
+    @And("user fields are not empty")
+    public void userFieldsAreNotEmpty() {
+        OnStage.theActorInTheSpotlight().should(seeThat(TheFieldsForSingleUserAre.expected()));
     }
 }
 

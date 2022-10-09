@@ -6,19 +6,22 @@ import net.serenitybdd.screenplay.Tasks;
 
 public class GetUsers implements Task{
     private final String resource;
-    private final int page;
+    private final String paramName;
+    private final int param;
 
-    public GetUsers(String resource, int page) {
+
+    public GetUsers(String resource, String paramName, int param) {
         this.resource = resource;
-        this.page = page;
+        this.paramName = paramName;
+        this.param = param;
     }
 
     @Override
     public <T extends Actor> void performAs(T actor){
-        actor.attemptsTo(ExecuteGet.service(resource, page));
+        actor.attemptsTo(ExecuteGet.service(resource, paramName, param));
     }
 
-    public static GetUsers service(String resource, int page){
-        return Tasks.instrumented(GetUsers.class, resource, page);
+    public static GetUsers service(String resource, String paramName, int param){
+        return Tasks.instrumented(GetUsers.class, resource, paramName, param);
     }
 }
